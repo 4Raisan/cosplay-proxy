@@ -1,0 +1,19 @@
+# Encoding rules (see README §5)
+# Batch files must stay CRLF (SFX header, launchers)
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Python / PowerShell / JSON / docs: LF, no BOM
+*.py text eol=lf
+*.ps1 text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.txt text eol=lf
+
+# Binary assets
+*.png binary
+*.ico binary
+*.exe binary
