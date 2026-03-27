@@ -1,0 +1,1 @@
+"""Cosplay configuration module."""
