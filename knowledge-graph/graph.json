@@ -1,0 +1,635 @@
+{
+  "nodes": [
+    {
+      "id": "Cosplay-Anthropic-Endpoints",
+      "url": "",
+      "path": "Cosplay-Anthropic-Endpoints.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Proxy-Layer",
+        "Cosplay-Auth-Token",
+        "Cosplay-Gateway-Model-IDs"
+      ]
+    },
+    {
+      "id": "Cosplay-API-Routes",
+      "url": "",
+      "path": "Cosplay-API-Routes.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Config-Storage",
+        "Cosplay-Runtime-Settings",
+        "Cosplay-Web-UI"
+      ]
+    },
+    {
+      "id": "Cosplay-Architecture",
+      "url": "",
+      "path": "Cosplay-Architecture.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Proxy-Layer",
+        "Cosplay-Model-Routing",
+        "Cosplay-Provider-Registry",
+        "Cosplay-Model-Discovery",
+        "Cosplay-Upstream-Client",
+        "Cosplay-Auth-Token",
+        "Cosplay-Config-Storage",
+        "Cosplay-Runtime-Settings",
+        "Cosplay-Telegram-Daemon",
+        "Cosplay-Web-UI",
+        "Cosplay-API-Routes"
+      ]
+    },
+    {
+      "id": "Cosplay-Auth-Token",
+      "url": "",
+      "path": "Cosplay-Auth-Token.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Proxy-Layer",
+        "Cosplay-Runtime-Settings",
+        "Cosplay-FCC-Launcher"
+      ]
+    },
+    {
+      "id": "Cosplay-Config-Storage",
+      "url": "",
+      "path": "Cosplay-Config-Storage.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Runtime-Settings",
+        "Cosplay-Provider-Registry",
+        "Cosplay-Model-Routing"
+      ]
+    },
+    {
+      "id": "Cosplay-FCC-Launcher",
+      "url": "",
+      "path": "Cosplay-FCC-Launcher.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Web-UI",
+        "Cosplay-Auth-Token",
+        "Cosplay-Gateway-Model-IDs",
+        "Cosplay-Config-Storage",
+        "Cosplay-Setup-Flow"
+      ]
+    },
+    {
+      "id": "Cosplay-Gateway-Model-IDs",
+      "url": "",
+      "path": "Cosplay-Gateway-Model-IDs.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Model-Routing",
+        "Cosplay-FCC-Launcher",
+        "Cosplay-Anthropic-Endpoints"
+      ]
+    },
+    {
+      "id": "Cosplay-Model-Discovery",
+      "url": "",
+      "path": "Cosplay-Model-Discovery.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Provider-Registry",
+        "Cosplay-Web-UI"
+      ]
+    },
+    {
+      "id": "Cosplay-Model-Routing",
+      "url": "",
+      "path": "Cosplay-Model-Routing.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Provider-Registry",
+        "Cosplay-Gateway-Model-IDs",
+        "Cosplay-Config-Storage"
+      ]
+    },
+    {
+      "id": "Cosplay-NIM-Provider",
+      "url": "",
+      "path": "Cosplay-NIM-Provider.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Setup-Flow",
+        "Cosplay-Model-Routing"
+      ]
+    },
+    {
+      "id": "Cosplay-OpenCode-Integration",
+      "url": "",
+      "path": "Cosplay-OpenCode-Integration.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Auth-Token",
+        "Cosplay-Model-Routing"
+      ]
+    },
+    {
+      "id": "Cosplay-Overview",
+      "url": "",
+      "path": "Cosplay-Overview.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Architecture",
+        "Cosplay-Config-Storage",
+        "Cosplay-FCC-Launcher",
+        "Cosplay-OpenCode-Integration",
+        "Cosplay-Runtime-Settings"
+      ]
+    },
+    {
+      "id": "Cosplay-Provider-Registry",
+      "url": "",
+      "path": "Cosplay-Provider-Registry.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Config-Storage",
+        "Cosplay-Model-Routing",
+        "Cosplay-Upstream-Client",
+        "Cosplay-NIM-Provider",
+        "Cosplay-Model-Discovery"
+      ]
+    },
+    {
+      "id": "Cosplay-Proxy-Layer",
+      "url": "",
+      "path": "Cosplay-Proxy-Layer.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Anthropic-Endpoints",
+        "Cosplay-Upstream-Client",
+        "Cosplay-Model-Routing",
+        "Cosplay-OpenCode-Integration",
+        "Cosplay-Auth-Token"
+      ]
+    },
+    {
+      "id": "Cosplay-Runtime-Settings",
+      "url": "",
+      "path": "Cosplay-Runtime-Settings.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Config-Storage",
+        "Cosplay-Auth-Token",
+        "Cosplay-FCC-Launcher",
+        "Cosplay-Web-UI",
+        "Cosplay-Upstream-Client"
+      ]
+    },
+    {
+      "id": "Cosplay-Setup-Flow",
+      "url": "",
+      "path": "Cosplay-Setup-Flow.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Config-Storage",
+        "Cosplay-NIM-Provider",
+        "Cosplay-FCC-Launcher"
+      ]
+    },
+    {
+      "id": "Cosplay-Telegram-Daemon",
+      "url": "",
+      "path": "Cosplay-Telegram-Daemon.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Config-Storage"
+      ]
+    },
+    {
+      "id": "Cosplay-Thinking-Voice",
+      "url": "",
+      "path": "Cosplay-Thinking-Voice.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Model-Routing",
+        "Cosplay-NIM-Provider"
+      ]
+    },
+    {
+      "id": "Cosplay-Upstream-Client",
+      "url": "",
+      "path": "Cosplay-Upstream-Client.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Model-Routing",
+        "Cosplay-Runtime-Settings",
+        "Cosplay-Proxy-Layer"
+      ]
+    },
+    {
+      "id": "Cosplay-Web-UI",
+      "url": "",
+      "path": "Cosplay-Web-UI.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-API-Routes",
+        "Cosplay-Model-Discovery",
+        "Cosplay-FCC-Launcher"
+      ]
+    },
+    {
+      "id": "MOC - Cosplay",
+      "url": "",
+      "path": "MOC - Cosplay.md",
+      "paragraphs": [],
+      "links": [
+        "Cosplay-Overview",
+        "Cosplay-Architecture",
+        "Cosplay-Proxy-Layer",
+        "Cosplay-Model-Routing",
+        "Cosplay-Provider-Registry",
+        "Cosplay-Config-Storage",
+        "Cosplay-Anthropic-Endpoints",
+        "Cosplay-API-Routes",
+        "Cosplay-Web-UI",
+        "Cosplay-Model-Discovery",
+        "Cosplay-Auth-Token",
+        "Cosplay-Upstream-Client",
+        "Cosplay-Runtime-Settings",
+        "Cosplay-Thinking-Voice",
+        "Cosplay-FCC-Launcher",
+        "Cosplay-Telegram-Daemon",
+        "Cosplay-OpenCode-Integration",
+        "Cosplay-NIM-Provider",
+        "Cosplay-Setup-Flow",
+        "Cosplay-Gateway-Model-IDs"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "Cosplay-API-Routes",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "Cosplay-API-Routes",
+      "target": "Cosplay-Runtime-Settings"
+    },
+    {
+      "source": "Cosplay-API-Routes",
+      "target": "Cosplay-Web-UI"
+    },
+    {
+      "source": "Cosplay-Anthropic-Endpoints",
+      "target": "Cosplay-Auth-Token"
+    },
+    {
+      "source": "Cosplay-Anthropic-Endpoints",
+      "target": "Cosplay-Gateway-Model-IDs"
+    },
+    {
+      "source": "Cosplay-Anthropic-Endpoints",
+      "target": "Cosplay-Proxy-Layer"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-API-Routes"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Auth-Token"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Model-Discovery"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Provider-Registry"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Proxy-Layer"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Runtime-Settings"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Telegram-Daemon"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Upstream-Client"
+    },
+    {
+      "source": "Cosplay-Architecture",
+      "target": "Cosplay-Web-UI"
+    },
+    {
+      "source": "Cosplay-Auth-Token",
+      "target": "Cosplay-FCC-Launcher"
+    },
+    {
+      "source": "Cosplay-Auth-Token",
+      "target": "Cosplay-Proxy-Layer"
+    },
+    {
+      "source": "Cosplay-Auth-Token",
+      "target": "Cosplay-Runtime-Settings"
+    },
+    {
+      "source": "Cosplay-Config-Storage",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "Cosplay-Config-Storage",
+      "target": "Cosplay-Provider-Registry"
+    },
+    {
+      "source": "Cosplay-Config-Storage",
+      "target": "Cosplay-Runtime-Settings"
+    },
+    {
+      "source": "Cosplay-FCC-Launcher",
+      "target": "Cosplay-Auth-Token"
+    },
+    {
+      "source": "Cosplay-FCC-Launcher",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "Cosplay-FCC-Launcher",
+      "target": "Cosplay-Gateway-Model-IDs"
+    },
+    {
+      "source": "Cosplay-FCC-Launcher",
+      "target": "Cosplay-Setup-Flow"
+    },
+    {
+      "source": "Cosplay-FCC-Launcher",
+      "target": "Cosplay-Web-UI"
+    },
+    {
+      "source": "Cosplay-Gateway-Model-IDs",
+      "target": "Cosplay-Anthropic-Endpoints"
+    },
+    {
+      "source": "Cosplay-Gateway-Model-IDs",
+      "target": "Cosplay-FCC-Launcher"
+    },
+    {
+      "source": "Cosplay-Gateway-Model-IDs",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "Cosplay-Model-Discovery",
+      "target": "Cosplay-Provider-Registry"
+    },
+    {
+      "source": "Cosplay-Model-Discovery",
+      "target": "Cosplay-Web-UI"
+    },
+    {
+      "source": "Cosplay-Model-Routing",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "Cosplay-Model-Routing",
+      "target": "Cosplay-Gateway-Model-IDs"
+    },
+    {
+      "source": "Cosplay-Model-Routing",
+      "target": "Cosplay-Provider-Registry"
+    },
+    {
+      "source": "Cosplay-NIM-Provider",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "Cosplay-NIM-Provider",
+      "target": "Cosplay-Setup-Flow"
+    },
+    {
+      "source": "Cosplay-OpenCode-Integration",
+      "target": "Cosplay-Auth-Token"
+    },
+    {
+      "source": "Cosplay-OpenCode-Integration",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "Cosplay-Overview",
+      "target": "Cosplay-Architecture"
+    },
+    {
+      "source": "Cosplay-Overview",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "Cosplay-Overview",
+      "target": "Cosplay-FCC-Launcher"
+    },
+    {
+      "source": "Cosplay-Overview",
+      "target": "Cosplay-OpenCode-Integration"
+    },
+    {
+      "source": "Cosplay-Overview",
+      "target": "Cosplay-Runtime-Settings"
+    },
+    {
+      "source": "Cosplay-Provider-Registry",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "Cosplay-Provider-Registry",
+      "target": "Cosplay-Model-Discovery"
+    },
+    {
+      "source": "Cosplay-Provider-Registry",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "Cosplay-Provider-Registry",
+      "target": "Cosplay-NIM-Provider"
+    },
+    {
+      "source": "Cosplay-Provider-Registry",
+      "target": "Cosplay-Upstream-Client"
+    },
+    {
+      "source": "Cosplay-Proxy-Layer",
+      "target": "Cosplay-Anthropic-Endpoints"
+    },
+    {
+      "source": "Cosplay-Proxy-Layer",
+      "target": "Cosplay-Auth-Token"
+    },
+    {
+      "source": "Cosplay-Proxy-Layer",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "Cosplay-Proxy-Layer",
+      "target": "Cosplay-OpenCode-Integration"
+    },
+    {
+      "source": "Cosplay-Proxy-Layer",
+      "target": "Cosplay-Upstream-Client"
+    },
+    {
+      "source": "Cosplay-Runtime-Settings",
+      "target": "Cosplay-Auth-Token"
+    },
+    {
+      "source": "Cosplay-Runtime-Settings",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "Cosplay-Runtime-Settings",
+      "target": "Cosplay-FCC-Launcher"
+    },
+    {
+      "source": "Cosplay-Runtime-Settings",
+      "target": "Cosplay-Upstream-Client"
+    },
+    {
+      "source": "Cosplay-Runtime-Settings",
+      "target": "Cosplay-Web-UI"
+    },
+    {
+      "source": "Cosplay-Setup-Flow",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "Cosplay-Setup-Flow",
+      "target": "Cosplay-FCC-Launcher"
+    },
+    {
+      "source": "Cosplay-Setup-Flow",
+      "target": "Cosplay-NIM-Provider"
+    },
+    {
+      "source": "Cosplay-Telegram-Daemon",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "Cosplay-Thinking-Voice",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "Cosplay-Thinking-Voice",
+      "target": "Cosplay-NIM-Provider"
+    },
+    {
+      "source": "Cosplay-Upstream-Client",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "Cosplay-Upstream-Client",
+      "target": "Cosplay-Proxy-Layer"
+    },
+    {
+      "source": "Cosplay-Upstream-Client",
+      "target": "Cosplay-Runtime-Settings"
+    },
+    {
+      "source": "Cosplay-Web-UI",
+      "target": "Cosplay-API-Routes"
+    },
+    {
+      "source": "Cosplay-Web-UI",
+      "target": "Cosplay-FCC-Launcher"
+    },
+    {
+      "source": "Cosplay-Web-UI",
+      "target": "Cosplay-Model-Discovery"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-API-Routes"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Anthropic-Endpoints"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Architecture"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Auth-Token"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Config-Storage"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-FCC-Launcher"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Gateway-Model-IDs"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Model-Discovery"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Model-Routing"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-NIM-Provider"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-OpenCode-Integration"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Overview"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Provider-Registry"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Proxy-Layer"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Runtime-Settings"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Setup-Flow"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Telegram-Daemon"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Thinking-Voice"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Upstream-Client"
+    },
+    {
+      "source": "MOC - Cosplay",
+      "target": "Cosplay-Web-UI"
+    }
+  ],
+  "directed": false
+}
