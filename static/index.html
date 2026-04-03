@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cosplay — Providers</title>
+    <meta name="description" content="Cosplay AI Provider Management — Connect and manage your AI providers" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎭</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/styles.css?v=20260808d" />
+  </head>
+  <body>
+    <!-- ── Top Bar ────────────────────────────────────────────── -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-brand">
+          <span class="brand-icon">🎭</span>
+          <h1>Cosplay</h1>
+        </div>
+        <nav class="topbar-nav">
+          <button class="nav-tab active" data-view="view-providers">Providers</button>
+          <button class="nav-tab" data-view="view-routing">Models</button>
+          <button class="nav-tab" data-view="view-thinking">Thinking</button>
+          <div class="topbar-more">
+            <details class="more-details">
+              <summary class="nav-tab more-toggle" id="moreToggle">More <span class="more-caret">▾</span></summary>
+              <div class="more-menu" id="moreMenu">
+                <button class="nav-tab more-item" data-view="view-web-voice">Web & Voice</button>
+                <button class="nav-tab more-item" data-view="view-remote">Remote Access</button>
+                <button class="nav-tab more-item" data-view="view-runtime">Runtime</button>
+              </div>
+            </details>
+          </div>
+        </nav>
+      </div>
+      <div class="topbar-actions" id="providerActions">
+        <button id="btnConnectAccount" class="btn btn-secondary" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Connect Account
+        </button>
+        <button id="btnAddProvider" class="btn btn-primary" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add API Key
+        </button>
+        <button id="btnResetData" class="btn btn-danger" type="button" onclick="handleResetData()" title="Clear all user data for fresh prototype testing">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          Reset
+        </button>
+      </div>
+    </header>
+
+    <!-- ── Main Content ───────────────────────────────────────── -->
+    <main class="main-content">
+      
+      <!-- Providers View -->
+      <div id="view-providers" class="view-section">
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state" hidden>
+          <div class="empty-icon">🎭</div>
+          <h2>No providers connected</h2>
+          <p>Add your first AI provider to get started.</p>
+          <button class="btn btn-primary btn-lg" onclick="document.getElementById('btnAddProvider').click()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Your First Provider
+          </button>
+        </div>
+
+        <!-- Provider Grid -->
+        <section id="providerSection" hidden>
+          <h2 class="section-title">Connected Providers</h2>
+          <div id="providerGrid" class="provider-grid"></div>
+        </section>
+      </div>
+
+      <!-- Model Routing View -->
+      <div id="view-routing" class="view-section" hidden>
+        <form id="routingForm" class="runtime-form">
+          <p class="section-subtitle" style="color: var(--text-secondary); margin-bottom: var(--space-xl);">
+            Select which models should be used for different types of tasks. If optional tasks are not assigned a model, Cosplay will automatically fall back to your Primary Coding Model.
+          </p>
+
+          <!-- Default Model -->
+          <section class="routing-section">
+            <div class="routing-label-group">
+              <label for="defaultModel">Default Model <span class="badge-optional" style="background: var(--surface-3); color: var(--text-secondary);">Base</span></label>
+              <span class="routing-hint">Used when a model is not explicitly routed to a specific capability.</span>
+            </div>
+            <div class="routing-input-group">
+              <select id="defaultModel" class="model-select">
+                <option value="">Fallback to Primary Coding Model</option>
+                <!-- Populated by JS -->
+              </select>
+              <div id="defaultWarning" class="model-warning" hidden>
+                ⚠ Model unavailable. Please choose another model.
+              </div>
+              <div id="defaultFallbackInfo" class="fallback-info" hidden></div>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <!-- Primary Coding Model -->
+          <section class="routing-section">
+            <div class="routing-label-group">
+              <label for="primaryCodingModel">Primary Coding Model</label>
+              <span class="routing-hint">Default model for coding, chat, and general work.</span>
+            </div>
+            <div class="routing-input-group">
+              <select id="primaryCodingModel" class="model-select">
+                <option value="">Select a model...</option>
+                <!-- Populated by JS -->
+              </select>
+              <div id="primaryCodingWarning" class="model-warning" hidden>
+                ⚠ Model unavailable. Please choose another model.
+              </div>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <!-- Fast Tasks -->
+          <section class="routing-section">
+            <div class="routing-label-group">
+              <label for="fastTasksModel">Fast Tasks <span class="badge-optional">Optional</span></label>
+              <span class="routing-hint">Used for lightweight work like quick summaries or file searching.</span>
+            </div>
+            <div class="routing-input-group">
+              <select id="fastTasksModel" class="model-select">
+                <option value="">Fallback to Primary Coding Model</option>
+                <!-- Populated by JS -->
+              </select>
+              <div id="fastTasksWarning" class="model-warning" hidden>
+                ⚠ Model unavailable. Please choose another model.
+              </div>
+              <div id="fastTasksFallbackInfo" class="fallback-info" hidden></div>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <!-- Heavy Analysis -->
+          <section class="routing-section">
+            <div class="routing-label-group">
+              <label for="heavyAnalysisModel">Heavy Analysis <span class="badge-optional">Optional</span></label>
+              <span class="routing-hint">Used for architecture, complex debugging, and large code analysis.</span>
+            </div>
+            <div class="routing-input-group">
+              <select id="heavyAnalysisModel" class="model-select">
+                <option value="">Fallback to Primary Coding Model</option>
+                <!-- Populated by JS -->
+              </select>
+              <div id="heavyAnalysisWarning" class="model-warning" hidden>
+                ⚠ Model unavailable. Please choose another model.
+              </div>
+              <div id="heavyAnalysisFallbackInfo" class="fallback-info" hidden></div>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <!-- Research -->
+          <section class="routing-section">
+            <div class="routing-label-group">
+              <label for="researchModel">Research <span class="badge-optional">Optional</span></label>
+              <span class="routing-hint">Used for long documentation, research, and information gathering.</span>
+            </div>
+            <div class="routing-input-group">
+              <select id="researchModel" class="model-select">
+                <option value="">Fallback to Heavy Analysis Model</option>
+                <!-- Populated by JS -->
+              </select>
+              <div id="researchWarning" class="model-warning" hidden>
+                ⚠ Model unavailable. Please choose another model.
+              </div>
+              <div id="researchFallbackInfo" class="fallback-info" hidden></div>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+          
+          <h3 class="section-title" style="margin-top: 1rem; margin-bottom: 0.5rem;">Resilience & Fallbacks</h3>
+          <p class="section-subtitle" style="color: var(--text-secondary); margin-bottom: var(--space-xl);">
+            If a provider goes down or you hit a rate limit, Cosplay will automatically retry your request using these fallback models seamlessly.
+          </p>
+
+          <section class="routing-section">
+            <div class="routing-label-group">
+              <label for="fallback1Model">Fallback 1 <span class="badge-optional">Optional</span></label>
+              <span class="routing-hint">First alternative model to try if the primary request fails.</span>
+            </div>
+            <div class="routing-input-group">
+              <select id="fallback1Model" class="model-select">
+                <option value="">None</option>
+                <!-- Populated by JS -->
+              </select>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <section class="routing-section">
+            <div class="routing-label-group">
+              <label for="fallback2Model">Fallback 2 <span class="badge-optional">Optional</span></label>
+              <span class="routing-hint">Second alternative model to try.</span>
+            </div>
+            <div class="routing-input-group">
+              <select id="fallback2Model" class="model-select">
+                <option value="">None</option>
+                <!-- Populated by JS -->
+              </select>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <section class="routing-section">
+            <div class="routing-label-group">
+              <label for="fallback3Model">Fallback 3 <span class="badge-optional">Optional</span></label>
+              <span class="routing-hint">Last resort alternative model.</span>
+            </div>
+            <div class="routing-input-group">
+              <select id="fallback3Model" class="model-select">
+                <option value="">None</option>
+                <!-- Populated by JS -->
+              </select>
+            </div>
+          </section>
+
+          <div class="form-actions">
+            <button type="submit" id="btnSaveRouting" class="btn btn-primary btn-lg">Save Routing</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Thinking View -->
+      <div id="view-thinking" class="view-section" hidden>
+        <form id="thinkingForm" class="runtime-form">
+          <p class="section-subtitle" style="color: var(--text-secondary); margin-bottom: var(--space-xl);">
+            Configure the reasoning effort for each task type. The available options adapt to the specific model you selected in the Model Routing tab.
+          </p>
+
+          <div id="thinkingSectionsContainer">
+            <!-- Dynamically populated by JS -->
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="btnSaveThinking" class="btn btn-primary btn-lg">Save Thinking Configuration</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Runtime View -->
+      <div id="view-runtime" class="view-section" hidden>
+        <form id="runtimeForm" class="runtime-form">
+          
+          <!-- API Protection -->
+          <section class="runtime-section">
+            <div class="section-header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <h2>API Protection</h2>
+            </div>
+            <div class="form-group">
+              <label for="apiAuthToken">API/CLI Auth Token</label>
+              <div class="token-group">
+                <input type="password" id="apiAuthToken" readonly value="*****************************" />
+                <button type="button" class="btn btn-secondary" onclick="copyApiToken()">Copy</button>
+                <button type="button" class="btn btn-secondary" onclick="regenerateApiToken()">Regenerate</button>
+              </div>
+              <span class="form-hint">Used by the launcher to securely connect to Cosplay. Auto-generated.</span>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <!-- Network -->
+          <section class="runtime-section">
+            <div class="section-header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <h2>Network</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="serverPort">Server Port</label>
+                <input type="number" id="serverPort" min="1024" max="65535" required />
+              </div>
+              <div class="form-group">
+                <label for="connectionTimeout">Connection Timeout</label>
+                <div class="input-with-suffix">
+                  <input type="number" id="connectionTimeout" min="1" max="300" required />
+                  <span class="suffix">Seconds</span>
+                </div>
+              </div>
+            </div>
+            <span class="form-hint" id="portRestartHint" style="color: var(--accent-warning); margin-top: -10px; display: none;">Changing the port requires restarting Cosplay to take effect.</span>
+          </section>
+
+          <hr class="section-divider" />
+
+          <!-- Rate Limit -->
+          <section class="runtime-section">
+            <div class="section-header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <h2>Request Rate Limit</h2>
+            </div>
+            <div class="inline-form-group">
+              <span>Allow</span>
+              <input type="number" id="rateLimitRequests" min="1" max="1000" class="input-short" required />
+              <span>Request(s)</span>
+              <span>Every</span>
+              <input type="number" id="rateLimitSeconds" min="1" max="3600" class="input-short" required />
+              <span>Second(s)</span>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <!-- Title Generation -->
+          <section class="runtime-section">
+            <label class="checkbox-label">
+              <input type="checkbox" id="skipTitleGeneration" />
+              <div class="checkbox-text">
+                <span class="checkbox-title">Skip Automatic Title Generation</span>
+                <span class="form-hint">Saves a small number of requests/tokens by preventing automatic conversation title generation.</span>
+              </div>
+            </label>
+          </section>
+
+          <div class="form-actions">
+            <button type="submit" id="btnSaveRuntime" class="btn btn-primary btn-lg">Save Settings</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Web & Voice View -->
+      <div id="view-web-voice" class="view-section" hidden>
+        <form id="webVoiceForm" class="runtime-form">
+          
+          <!-- Web Section -->
+          <section class="runtime-section">
+            <div class="section-header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <h2>Web</h2>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: var(--space-md); margin-top: var(--space-md);">
+              <label class="checkbox-label">
+                <input type="checkbox" id="enableWebSearch" checked />
+                <div class="checkbox-text">
+                  <span class="checkbox-title">Enable Web Search</span>
+                  <span class="form-hint">Allows AI to perform web searches when requested.</span>
+                </div>
+              </label>
+
+              <label class="checkbox-label">
+                <input type="checkbox" id="allowPrivateNetwork" />
+                <div class="checkbox-text">
+                  <span class="checkbox-title">Allow Private Network Access</span>
+                  <span class="form-hint">Allow AI to access local/private network URLs (e.g. localhost, 127.0.0.1, 192.168.x.x). Keep OFF unless necessary.</span>
+                </div>
+              </label>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <!-- Voice Section -->
+          <section class="runtime-section">
+            <div class="section-header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+              <h2>Voice</h2>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: var(--space-md); margin-top: var(--space-md);">
+              <label class="checkbox-label">
+                <input type="checkbox" id="enableVoice" />
+                <div class="checkbox-text">
+                  <span class="checkbox-title">Enable Voice</span>
+                  <span class="form-hint">Enables voice synthesis and transcription capabilities.</span>
+                </div>
+              </label>
+
+              <!-- NVIDIA Status Panel -->
+              <div class="nvidia-panel">
+                <div class="nvidia-header">
+                  <h3 class="nvidia-title">Voice Provider: NVIDIA NIM</h3>
+                </div>
+
+                <!-- Missing State -->
+                <div id="nvidiaMissingState" hidden>
+                  <div class="nvidia-alert">
+                    ⚠ NVIDIA NIM is not configured.
+                  </div>
+                  <button type="button" id="btnConfigureNvidia" class="btn btn-secondary" style="margin-top: var(--space-sm);">Configure NVIDIA Provider</button>
+                </div>
+
+                <!-- Connected State -->
+                <div id="nvidiaConnectedState" hidden>
+                  <div class="nvidia-grid">
+                    <div class="nvidia-label">API Status</div>
+                    <div class="nvidia-value" id="nvidiaApiStatus">✓ Connected</div>
+                    
+                    <div class="nvidia-label">API Key</div>
+                    <div class="nvidia-value">
+                      <span id="nvidiaApiKey">**************</span>
+                      <span class="nvidia-hint">(Managed by Providers)</span>
+                    </div>
+
+                    <div class="nvidia-label">Voice Model</div>
+                    <div class="nvidia-value" style="display: flex; gap: var(--space-sm); align-items: center; flex-wrap: wrap;">
+                      <select id="voiceModelSelect" class="model-select" style="max-width: 300px;">
+                        <option value="">Select a model...</option>
+                      </select>
+                      <button type="button" id="btnRefreshVoiceModels" class="btn btn-secondary btn-sm">Refresh Voice Models</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="form-actions">
+            <button type="submit" id="btnSaveWebVoice" class="btn btn-primary btn-lg">Save Settings</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Remote Access View -->
+      <div id="view-remote" class="view-section" hidden>
+        <form id="remoteForm" class="runtime-form">
+          
+          <section class="runtime-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+              <label class="checkbox-label" style="font-size: 1.1rem; font-weight: 500;">
+                <input type="checkbox" id="enableTelegram" />
+                <div class="checkbox-text">
+                  <span class="checkbox-title">Enable Telegram</span>
+                </div>
+              </label>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-weight: 500; font-size: 0.9rem; color: var(--text-muted);">Daemon Status:</span>
+                <span id="daemonStatusBadge" class="status-badge" style="padding: 2px 8px; font-size: 0.8rem; background: var(--bg-surface-hover); color: var(--text-primary); cursor: default; border-radius: var(--radius-sm);">Unknown</span>
+              </div>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <section class="runtime-section">
+            <div class="routing-label-group" style="margin-bottom: var(--space-sm);">
+              <label for="telegramToken">Bot Token</label>
+            </div>
+            <input type="password" id="telegramToken" class="input-long" placeholder="e.g. 123456789:ABCdefGHIjklmNOPqrsTUVwxyz..." />
+          </section>
+
+          <hr class="section-divider" />
+
+          <section class="runtime-section">
+            <div class="routing-label-group" style="margin-bottom: var(--space-sm);">
+              <label for="telegramPairedStatus">Allowed User</label>
+            </div>
+            <div class="nvidia-grid" style="align-items: center; max-width: 600px;">
+              <div id="telegramPairedStatus" class="nvidia-value" style="color: var(--text-muted);">
+                Not Paired
+              </div>
+              <button type="button" id="btnPairTelegram" class="btn btn-secondary">Pair Telegram</button>
+            </div>
+            <div id="telegramPairingInstructions" class="form-hint" style="margin-top: var(--space-sm); color: var(--accent-primary);" hidden>
+              Waiting for pairing... Please open your Telegram bot and send: <strong>/pair</strong>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <section class="runtime-section">
+            <div class="routing-label-group" style="margin-bottom: var(--space-sm);">
+              <label for="workspaceFolder">Workspace Folder</label>
+            </div>
+            <div style="display: flex; gap: var(--space-sm); max-width: 600px;">
+              <input type="text" id="workspaceFolder" class="input-long" placeholder="e.g. C:\Projects" style="flex: 1;" />
+              <button type="button" id="btnBrowseFolder" class="btn btn-secondary">Browse</button>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <section class="runtime-section">
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <label class="checkbox-label">
+                <input type="checkbox" id="allowVoiceMessages" />
+                <div class="checkbox-text">
+                  <span class="checkbox-title">Allow Voice Messages</span>
+                </div>
+              </label>
+              <div id="remoteVoiceWarning" class="form-hint" style="color: var(--accent-warning); margin-top: -8px; margin-left: 32px;" hidden>
+                ⚠ Voice is not configured. Configure Voice in the Web & Voice page.
+              </div>
+
+              <label class="checkbox-label" style="opacity: 0.6; cursor: not-allowed;">
+                <input type="checkbox" id="allowFileUploads" disabled />
+                <div class="checkbox-text">
+                  <span class="checkbox-title">Allow File Uploads <span style="font-size: 0.8rem; font-weight: 400;">(Coming Soon)</span></span>
+                </div>
+              </label>
+
+              <label class="checkbox-label" style="opacity: 0.6; cursor: not-allowed;">
+                <input type="checkbox" id="allowImageUploads" disabled />
+                <div class="checkbox-text">
+                  <span class="checkbox-title">Allow Image Uploads <span style="font-size: 0.8rem; font-weight: 400;">(Coming Soon)</span></span>
+                </div>
+              </label>
+            </div>
+          </section>
+
+          <hr class="section-divider" />
+
+          <section class="runtime-section">
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <div style="display: flex; align-items: center; gap: var(--space-md);">
+                <button type="button" id="btnTestRemoteConnection" class="btn btn-secondary">Test Connection</button>
+                <div id="remoteConnectionStatus" style="font-weight: 500;"></div>
+              </div>
+              <div id="remoteConnectionChecks" style="display: flex; flex-direction: column; gap: 4px; padding-left: var(--space-md);" hidden></div>
+            </div>
+          </section>
+
+          <div class="form-actions" style="margin-top: var(--space-xl);">
+            <button type="submit" id="btnSaveRemote" class="btn btn-primary btn-lg">Save Settings</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- ── Add Provider Modal ─────────────────────────────────── -->
+    <div id="addProviderModal" class="modal-overlay" hidden>
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Add Provider</h2>
+          <button class="modal-close" onclick="closeModal('addProviderModal')">&times;</button>
+        </div>
+        <form id="addProviderForm" class="modal-body">
+          <div class="form-group">
+            <label for="providerName">Provider Name</label>
+            <input type="text" id="providerName" placeholder="e.g. Google AI Studio, OpenRouter, My Local Ollama" required />
+          </div>
+          <div class="form-group">
+            <label for="apiType">API Type</label>
+            <select id="apiType" class="model-select" required>
+              <option value="openai_compatible">OpenAI Compatible</option>
+              <option value="anthropic">Anthropic</option>
+              <option value="gemini">Gemini</option>
+              <option value="local">Local Provider</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="baseUrl">Base URL</label>
+            <input type="text" id="baseUrl" placeholder="https://api.example.com/v1" />
+            <span class="form-hint" id="baseUrlHint">The API endpoint URL for this provider.</span>
+          </div>
+          <div class="form-group" id="apiKeyGroup">
+            <label for="apiKey">API Key</label>
+            <div class="input-with-toggle">
+              <input type="password" id="apiKey" placeholder="sk-..." />
+              <button type="button" class="input-toggle" onclick="togglePasswordVisibility('apiKey', this)" aria-label="Toggle visibility">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <details class="form-advanced">
+            <summary>Advanced Options</summary>
+            <div class="form-group">
+              <label for="customHeaders">Custom Headers <span class="form-optional">(Optional)</span></label>
+              <textarea id="customHeaders" rows="3" placeholder='{"X-Custom-Header": "value"}'></textarea>
+              <span class="form-hint">JSON object of additional HTTP headers.</span>
+            </div>
+          </details>
+
+          <!-- Validation result -->
+          <div id="validateResult" class="validate-result" hidden></div>
+
+          <div class="modal-actions">
+            <button type="button" id="btnValidate" class="btn btn-secondary" onclick="validateProvider()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Validate
+            </button>
+            <div class="modal-actions-right">
+              <button type="button" class="btn btn-ghost" onclick="closeModal('addProviderModal')">Cancel</button>
+              <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ── Connect Account Modal ──────────────────────────────── -->
+    <div id="connectAccountModal" class="modal-overlay" hidden>
+      <div class="modal modal-sm">
+        <div class="modal-header">
+          <h2>Connect Account</h2>
+          <button class="modal-close" onclick="closeModal('connectAccountModal')">&times;</button>
+        </div>
+        <div id="accountProviderList" class="modal-body account-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Configure Provider Modal ───────────────────────────── -->
+    <div id="configureModal" class="modal-overlay" hidden>
+      <div class="modal">
+        <div class="modal-header">
+          <h2 id="configureTitle">Configure Provider</h2>
+          <button class="modal-close" onclick="closeModal('configureModal')">&times;</button>
+        </div>
+        <form id="configureForm" class="modal-body">
+          <input type="hidden" id="configureId" />
+          <div class="form-group">
+            <label for="configureName">Provider Name</label>
+            <input type="text" id="configureName" required />
+          </div>
+          <div class="form-group">
+            <label for="configureBaseUrl">Base URL</label>
+            <input type="text" id="configureBaseUrl" />
+          </div>
+          <div class="form-group">
+            <label for="configureApiKey">API Key</label>
+            <div class="input-with-toggle">
+              <input type="password" id="configureApiKey" placeholder="Leave blank to keep current" />
+              <button type="button" class="input-toggle" onclick="togglePasswordVisibility('configureApiKey', this)" aria-label="Toggle visibility">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-danger" onclick="deleteCurrentProvider()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Delete
+            </button>
+            <div class="modal-actions-right">
+              <button type="button" class="btn btn-ghost" onclick="closeModal('configureModal')">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ── Models Modal ───────────────────────────────────────── -->
+    <div id="modelsModal" class="modal-overlay" hidden>
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <h2 id="modelsTitle">Models</h2>
+          <button class="modal-close" onclick="closeModal('modelsModal')">&times;</button>
+        </div>
+        <div id="modelsList" class="modal-body models-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Diagnostics Modal ────────────────────────────────────── -->
+    <div id="diagnosticsModal" class="modal-overlay" hidden>
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <h2>Developer Diagnostics</h2>
+          <button class="modal-close" onclick="closeModal('diagnosticsModal')">&times;</button>
+        </div>
+        <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+          <pre id="diagnosticsOutput" style="background: var(--bg-deep); padding: var(--space-md); border-radius: var(--radius-md); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; white-space: pre-wrap; word-wrap: break-word; color: var(--text-primary); margin: 0;"></pre>
+        </div>
+        <div class="modal-actions">
+          <div class="modal-actions-right">
+            <button type="button" class="btn btn-ghost" onclick="closeModal('diagnosticsModal')">Close</button>
+            <button type="button" class="btn btn-primary" onclick="exportDiagnostics()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export JSON
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Toast container ────────────────────────────────────── -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="/static/app.js?v=20260808d"></script>
+  </body>
+</html>
