@@ -236,6 +236,8 @@ and self-deletes the folder.
 
 ## 9. License
 
-MIT License — No-Sell Clause (see [`LICENSE`](LICENSE)): free to use, copy, modify, and
+Cosplay is an independent project and is not affiliated with Anthropic.
+
+Custom license with a no-sell clause (see [`LICENSE`](LICENSE)): free to use, copy, modify, and
 distribute, but you may not sell Cosplay or products whose main value is Cosplay. Software
 is provided "as is" without warranty or liability.
