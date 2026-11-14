@@ -10,6 +10,10 @@ the model calls.
 
 ---
 
+## Start on Windows
+
+From a source checkout, run `cclaude-setup.bat` and follow the prompts. This wrapper calls the checked-in PowerShell setup script. The standalone EXE referenced below is a build output.
+
 ## 1. What it is
 
 Three cooperating parts, all running on `127.0.0.1`:
